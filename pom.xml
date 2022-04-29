@@ -15,7 +15,7 @@
 	<name>E-commerce estreet</name>
 	<description>API para armazenamento de produtos de um e-commerce</description>
 	<properties>
-		<java.version>11</java.version>
+		
 	</properties>
 	<dependencies>
 		<dependency>
