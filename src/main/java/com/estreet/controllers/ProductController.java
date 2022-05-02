@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estreet.dto.ProductDTO;
-import com.estreet.models.Product;
 import com.estreet.services.impl.ProductServiceIMPL;
+import com.estreet.vo.ProductVO;
 
 @RestController
 @RequestMapping(path = "/product")
@@ -26,27 +26,27 @@ public class ProductController {
 	private ProductServiceIMPL service;
 	
 	@GetMapping
-	public List<Product> getAll() {
+	public List<ProductVO> getAll() {
 		return service.getAll();
 	}
 	
 	@GetMapping(path = "/{id}")
-	public Product get(@PathVariable Long id) {
+	public ProductVO get(@PathVariable Long id) {
 		return service.get(id);
 	}
 	
 	@PostMapping()
-	public Product create(@Valid @RequestBody ProductDTO dto) {
+	public ProductVO create(@Valid @RequestBody ProductDTO dto) {
 		return service.create(dto);
 	}
 	
 	@PutMapping(path = "/{id}")
-	public Product update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+	public ProductVO update(@PathVariable Long id, @RequestBody ProductDTO dto) {
 		return service.update(id, dto);
 	}
 	
 	@DeleteMapping(path = "/{id}")
-	public Product delete(@PathVariable Long id) {
+	public ProductVO delete(@PathVariable Long id) {
 		return service.delete(id);
 	}
 	

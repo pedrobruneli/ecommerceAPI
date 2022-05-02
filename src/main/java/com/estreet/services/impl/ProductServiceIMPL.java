@@ -11,6 +11,8 @@ import com.estreet.models.BrandRepository;
 import com.estreet.models.Product;
 import com.estreet.models.ProductRepository;
 import com.estreet.services.ProductsService;
+import com.estreet.vo.Dozer;
+import com.estreet.vo.ProductVO;
 
 @Service
 public class ProductServiceIMPL implements ProductsService {
@@ -22,7 +24,7 @@ public class ProductServiceIMPL implements ProductsService {
 	BrandRepository brandREP;
 
 	@Override
-	public Product create(ProductDTO dto) {
+	public ProductVO create(ProductDTO dto) {
 		Product product = new Product();
 		product.setBrand(brandREP.findById(dto.getBrandId()).get());
 		product.setDescricao(dto.getDescricao());
@@ -30,16 +32,16 @@ public class ProductServiceIMPL implements ProductsService {
 		product.setName(dto.getName());
 		product.setPrice(dto.getPrice());
 		productREP.save(product);
-		return product;
+		return Dozer.mapper().map(product, ProductVO.class);
 	}
 
 	@Override
-	public Product get(Long id) {
-		return productREP.findById(id).get();
+	public ProductVO get(Long id) {
+		return Dozer.mapper().map(productREP.findById(id).get(), ProductVO.class);
 	}
 
 	@Override
-	public Product update(Long id, ProductDTO dto) {
+	public ProductVO update(Long id, ProductDTO dto) {
 		Optional<Product> optProduct = productREP.findById(id);
 		if (optProduct.isPresent()) {
 			Product product = optProduct.get();
@@ -48,22 +50,22 @@ public class ProductServiceIMPL implements ProductsService {
 			product.setDescricao(dto.getDescricao() != null ? dto.getDescricao() : product.getDescricao());
 			product.setPrice(dto.getPrice() != null ? dto.getPrice() : product.getPrice());
 			productREP.save(product);
-			return product;
+			return Dozer.mapper().map(product, ProductVO.class);
 		}
 		return null;
 	}
 
 	@Override
-	public List<Product> getAll() {
-		return productREP.findAll();
+	public List<ProductVO> getAll() {
+		return Dozer.convertList(productREP.findAll(), ProductVO.class);
 	}
 
 	@Override
-	public Product delete(Long id) {
+	public ProductVO delete(Long id) {
 		Optional<Product> product = productREP.findById(id);
 		if (product.isPresent()) {
 			productREP.delete(product.get());
-			return product.get();
+			return Dozer.mapper().map(product.get(), ProductVO.class);
 		}
 		return null;
 	}

@@ -3,19 +3,19 @@ package com.estreet.services;
 import java.util.List;
 
 import com.estreet.dto.BrandDTO;
-import com.estreet.models.Brand;
+import com.estreet.vo.BrandVO;
 
 
 public interface BrandService {
 	
-	Brand create(BrandDTO dto);
+	BrandVO create(BrandDTO dto);
 	
-	Brand get(Long id);
+	BrandVO get(Long id);
 	
-	Brand update(Long id, BrandDTO dto);
+	BrandVO update(Long id, BrandDTO dto);
 	
-	List<Brand> getAll();
+	List<BrandVO> getAll();
 	
-	Brand delete(Long id);
+	BrandVO delete(Long id);
 
 }

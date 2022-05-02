@@ -12,6 +12,8 @@ import com.estreet.models.Brand;
 import com.estreet.models.BrandRepository;
 import com.estreet.models.Product;
 import com.estreet.services.BrandService;
+import com.estreet.vo.BrandVO;
+import com.estreet.vo.Dozer;
 
 @Service
 public class BrandServiceIMPL implements BrandService{
@@ -20,43 +22,43 @@ public class BrandServiceIMPL implements BrandService{
 	private BrandRepository brandREP;
 
 	@Override
-	public Brand create(BrandDTO dto) {
+	public BrandVO create(BrandDTO dto) {
 		Brand brand = new Brand();
 		brand.setName(dto.getName());
 		brand.setProducts(new ArrayList<Product>());
 		brandREP.save(brand);
-		return brand;
+		return Dozer.mapper().map(brand, BrandVO.class);
 	}
 
 	@Override
-	public Brand get(Long id) {
-		return brandREP.findById(id).get();
+	public BrandVO get(Long id) {
+		return Dozer.mapper().map(brandREP.findById(id).get(), BrandVO.class);
 	}
 
 	@Override
-	public Brand update(Long id, BrandDTO dto) {
+	public BrandVO update(Long id, BrandDTO dto) {
 		Optional<Brand> optBrand = brandREP.findById(id);
 		if(optBrand.isPresent()) {
 			Brand brand = optBrand.get();
 			brand.setName(dto.getName() != null ? dto.getName() : brand.getName());
 			brandREP.save(brand);
-			return brand;
+			return Dozer.mapper().map(brand, BrandVO.class);
 		}
 		return null;
 	}
 
 	@Override
-	public List<Brand> getAll() {
-		return brandREP.findAll();
+	public List<BrandVO> getAll() {
+		return Dozer.convertList(brandREP.findAll(), BrandVO.class);
 	}
 
 	@Override
-	public Brand delete(Long id) {
+	public BrandVO delete(Long id) {
 		Optional<Brand> optBrand = brandREP.findById(id);
 		if(optBrand.isPresent()) {
 			Brand brand = optBrand.get();
 			brandREP.delete(brand);
-			return brand;
+			return Dozer.mapper().map(brand, BrandVO.class);
 		}
 		return null;
 	}

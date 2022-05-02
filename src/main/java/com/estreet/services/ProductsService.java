@@ -3,17 +3,17 @@ package com.estreet.services;
 import java.util.List;
 
 import com.estreet.dto.ProductDTO;
-import com.estreet.models.Product;
+import com.estreet.vo.ProductVO;
 
 public interface ProductsService {
 	
-	Product create(ProductDTO dto);
+	ProductVO create(ProductDTO dto);
 	
-	Product get(Long id);
+	ProductVO get(Long id);
 	
-	Product update(Long id, ProductDTO dto);
+	ProductVO update(Long id, ProductDTO dto);
 	
-	List<Product> getAll();
+	List<ProductVO> getAll();
 	
-	Product delete(Long id);
+	ProductVO delete(Long id);
 }

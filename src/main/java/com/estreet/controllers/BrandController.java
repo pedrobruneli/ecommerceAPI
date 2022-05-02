@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estreet.dto.BrandDTO;
-import com.estreet.models.Brand;
 import com.estreet.services.impl.BrandServiceIMPL;
+import com.estreet.vo.BrandVO;
 
 @RestController
 @RequestMapping(path = "/brand")
@@ -25,22 +25,22 @@ public class BrandController {
 	private BrandServiceIMPL service;
 	
 	@GetMapping
-	public List<Brand> getAll() {
+	public List<BrandVO> getAll() {
 		return service.getAll();
 	}
 	
 	@GetMapping(path = "/{id}")
-	public Brand get(@PathVariable Long id) {
+	public BrandVO get(@PathVariable Long id) {
 		return service.get(id);
 	}
 	
 	@PostMapping
-	public Brand create(@RequestBody @Valid BrandDTO dto) {
+	public BrandVO create(@RequestBody @Valid BrandDTO dto) {
 		return service.create(dto);
 	}
 	
 	@PutMapping(path = "/{id}")
-	public Brand update(@PathVariable Long id, @RequestBody BrandDTO dto) {
+	public BrandVO update(@PathVariable Long id, @RequestBody BrandDTO dto) {
 		return service.update(id, dto);
 	}
 
