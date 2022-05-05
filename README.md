@@ -14,3 +14,5 @@ Spring boot, Jpa, Hibernate, Lombok, Dozer, JWT, Swagger
 [x] JWT/Spring security para a authenticação do usuario
 
 [x] Swagger para a documentação da API.
+
+[x] Testes unitarios
