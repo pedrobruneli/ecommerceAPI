@@ -8,17 +8,15 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.estreet.dozer.Dozer;
 import com.estreet.models.Brand;
 import com.estreet.models.Product;
 import com.estreet.vo.BrandVO;
+import com.estreet.vo.Dozer;
 import com.estreet.vo.ProductVO;
-import com.github.dozermapper.core.Mapper;
 
 @SpringBootTest
 class ApplicationTests {
 
-	private Mapper mapper = Dozer.mapper();
 	
 	@Test
 	void dozerProductTest() {
@@ -26,7 +24,7 @@ class ApplicationTests {
 		Brand brand = new Brand(1L, "Brand prod", List.of(new Product()));
 		Product prod = new Product(2L, brand, "Product", "Prod Desc", 120.0, "Product Image");
 		
-		ProductVO vo = mapper.map(prod, ProductVO.class);
+		ProductVO vo = Dozer.parseObject(prod, ProductVO.class);
 		assertEquals(vo.getBrand().getName(), "Brand prod");
 		assertEquals(vo.getDescricao(), "Prod Desc");
 		assertEquals(vo.getId(), 2L);
@@ -40,7 +38,7 @@ class ApplicationTests {
 		Product prod = new Product();
 		prod.setImage("Brand product image");
 		Brand brand = new Brand(3L, "Brand name", List.of(prod));
-		BrandVO vo = mapper.map(brand, BrandVO.class);
+		BrandVO vo = Dozer.parseObject(brand, BrandVO.class);
 		
 		assertEquals(vo.getId(), 3L);
 		assertEquals(vo.getName(), "Brand name");

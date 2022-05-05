@@ -7,43 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "permission")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_product")
-public class Product implements Serializable{
+public class Permission implements GrantedAuthority, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "brand_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Brand brand;
-	
-	@Column(nullable = false)
-	private String name;
-	
-	private String descricao;
-	
-	private Double price;
-	
-	@Column(nullable = false)
-	private String image;
+	@Column(name = "description")
+	private String description;
+
+	@Override
+	public String getAuthority() {
+		return description;
+	}
 
 }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.estreet.dto.BrandDTO;
 import com.estreet.models.Brand;
-import com.estreet.models.BrandRepository;
 import com.estreet.models.Product;
+import com.estreet.repositories.BrandRepository;
 import com.estreet.services.BrandService;
 import com.estreet.vo.BrandVO;
 import com.estreet.vo.Dozer;
@@ -27,12 +27,12 @@ public class BrandServiceIMPL implements BrandService{
 		brand.setName(dto.getName());
 		brand.setProducts(new ArrayList<Product>());
 		brandREP.save(brand);
-		return Dozer.mapper().map(brand, BrandVO.class);
+		return Dozer.parseObject(brand, BrandVO.class);
 	}
 
 	@Override
 	public BrandVO get(Long id) {
-		return Dozer.mapper().map(brandREP.findById(id).get(), BrandVO.class);
+		return Dozer.parseObject(brandREP.findById(id).get(), BrandVO.class);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class BrandServiceIMPL implements BrandService{
 			Brand brand = optBrand.get();
 			brand.setName(dto.getName() != null ? dto.getName() : brand.getName());
 			brandREP.save(brand);
-			return Dozer.mapper().map(brand, BrandVO.class);
+			return Dozer.parseObject(brand, BrandVO.class);
 		}
 		return null;
 	}
@@ -58,7 +58,7 @@ public class BrandServiceIMPL implements BrandService{
 		if(optBrand.isPresent()) {
 			Brand brand = optBrand.get();
 			brandREP.delete(brand);
-			return Dozer.mapper().map(brand, BrandVO.class);
+			return Dozer.parseObject(brand, BrandVO.class);
 		}
 		return null;
 	}

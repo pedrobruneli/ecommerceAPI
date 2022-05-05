@@ -5,11 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.estreet.dto.ProductDTO;
-import com.estreet.models.BrandRepository;
 import com.estreet.models.Product;
-import com.estreet.models.ProductRepository;
+import com.estreet.repositories.BrandRepository;
+import com.estreet.repositories.ProductRepository;
 import com.estreet.services.ProductsService;
 import com.estreet.vo.Dozer;
 import com.estreet.vo.ProductVO;
@@ -32,12 +31,13 @@ public class ProductServiceIMPL implements ProductsService {
 		product.setName(dto.getName());
 		product.setPrice(dto.getPrice());
 		productREP.save(product);
-		return Dozer.mapper().map(product, ProductVO.class);
+		return Dozer.parseObject(product, ProductVO.class);
 	}
 
 	@Override
 	public ProductVO get(Long id) {
-		return Dozer.mapper().map(productREP.findById(id).get(), ProductVO.class);
+		Product produto = productREP.findById(id).get();
+		return Dozer.parseObject(produto, ProductVO.class);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class ProductServiceIMPL implements ProductsService {
 			product.setDescricao(dto.getDescricao() != null ? dto.getDescricao() : product.getDescricao());
 			product.setPrice(dto.getPrice() != null ? dto.getPrice() : product.getPrice());
 			productREP.save(product);
-			return Dozer.mapper().map(product, ProductVO.class);
+			return Dozer.parseObject(product, ProductVO.class);
 		}
 		return null;
 	}
@@ -65,7 +65,7 @@ public class ProductServiceIMPL implements ProductsService {
 		Optional<Product> product = productREP.findById(id);
 		if (product.isPresent()) {
 			productREP.delete(product.get());
-			return Dozer.mapper().map(product.get(), ProductVO.class);
+			return Dozer.parseObject(product.get(), ProductVO.class);
 		}
 		return null;
 	}

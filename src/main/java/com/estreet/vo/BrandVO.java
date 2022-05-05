@@ -3,6 +3,7 @@ package com.estreet.vo;
 import java.util.List;
 
 import com.estreet.models.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class BrandVO {
 	
 	private String name;
 	
+	@JsonIgnore
 	private List<Product> products;
 
 }

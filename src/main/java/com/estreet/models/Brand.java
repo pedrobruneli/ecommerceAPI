@@ -1,5 +1,6 @@
 package com.estreet.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,8 +28,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "tb_brand")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Brand {
+public class Brand implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
